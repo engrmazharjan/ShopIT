@@ -3,7 +3,7 @@ const connectDB = require("./config/database");
 const dotenv = require("dotenv");
 
 // Setting Up Config File
-dotenv.config({ path: ".env" });
+dotenv.config({ path: "backend/config/.env" });
 
 // Connecting To DB
 connectDB();
