@@ -1,9 +1,8 @@
 const Product = require("../models/productModel");
 
 // @desc    Create a new product
-// @route   POST /api/v1/product/new
+// @route   POST /api/v1/admin/product/new
 // @access  Private/Admin
-// Create New Product => /api/v1/product/new
 const newProduct = async (req, res, next) => {
   const product = await Product.create(req.body);
 
@@ -42,8 +41,36 @@ const getSingleProduct = async (req, res, next) => {
   });
 };
 
+// @desc    Update a product
+// @route   PUT /api/v1/admin/product/:id
+// @access  Private/Admin
+const updateProduct = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    return res.status(404).json({
+      success: false,
+      message: "Product Not Found",
+    });
+  }
+
+  const updatedProduct = await Product.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+  res.status(200).json({
+    success: true,
+    updatedProduct,
+  });
+};
+
 module.exports = {
   newProduct,
   getProducts,
   getSingleProduct,
+  updateProduct,
 };
