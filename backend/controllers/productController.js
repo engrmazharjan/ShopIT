@@ -68,9 +68,29 @@ const updateProduct = async (req, res, next) => {
   });
 };
 
+// @desc    Delete a product
+// @route   DELETE /api/v1/admin/product/:id
+// @access  Private/Admin
+const deleteProduct = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    return res.status(404).json({
+      success: false,
+      message: "Product Not Found",
+    });
+  }
+
+  await product.remove();
+  res.status(200).json({
+    success: true,
+    message: "Product Is Deleted Successfully",
+  });
+};
+
 module.exports = {
   newProduct,
   getProducts,
   getSingleProduct,
   updateProduct,
+  deleteProduct,
 };

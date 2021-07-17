@@ -6,6 +6,7 @@ const {
   getSingleProduct,
   newProduct,
   updateProduct,
+  deleteProduct,
 } = require("../controllers/productController");
 
 // Routes
@@ -14,6 +15,6 @@ router.route("/product/:id").get(getSingleProduct);
 
 // Admin Routes
 router.route("/admin/product/new").post(newProduct);
-router.route("/admin/product/:id").put(updateProduct);
+router.route("/admin/product/:id").put(updateProduct).delete(deleteProduct);
 
 module.exports = router;
