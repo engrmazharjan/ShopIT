@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
+
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -17,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please Enter Your Password"],
-    minLength: [8, "Your Password Must Be 8 Characters Long Or More"],
+    minlength: [8, "Your Password Must Be 8 Characters Long Or More"],
     select: false,
   },
 
@@ -45,6 +47,14 @@ const UserSchema = new mongoose.Schema({
   resetPasswordToken: String,
 
   resetPasswordExpire: Date,
+});
+
+// Encrypting Password Before Saving User To DataBase
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 module.exports = mongoose.model("User", UserSchema);
