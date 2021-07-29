@@ -3,6 +3,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 
 // @desc    Register/Create new user
 // @route   POST /api/v1/register
@@ -51,7 +52,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 // @desc    Forgot Password
-// @route   GET /api/v1/password/forgot
+// @route   POST /api/v1/password/forgot
 // @access  Public
 exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
@@ -66,7 +67,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // Create Reset Password url
-  const resetUrl = `${res.protocol}://${req.get(
+  const resetUrl = `${req.protocol}://${req.get(
     "host"
   )}/api/v1/password/reset/${resetToken}`;
 
@@ -91,6 +92,45 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
     return next(new ErrorHandler(error.message, 500));
   }
+});
+
+// @desc    Reset Password
+// @route   PUT /api/v1/password/reset/:token
+// @access  Public
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+  // Hash URL token
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(
+      new ErrorHandler(
+        "Password reset token is invalid or has been expired",
+        400
+      )
+    );
+  }
+
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHandler("Password does not match", 400));
+  }
+
+  // Setup new password
+  user.password = req.body.password;
+
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  sendToken(user, 200, res);
 });
 
 // @desc    Logout user
