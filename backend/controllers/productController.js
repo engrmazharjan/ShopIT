@@ -7,6 +7,8 @@ const APIFeatures = require("../utils/apiFeatures");
 // @route   POST /api/v1/admin/product/new
 // @access  Private/Admin
 const newProduct = catchAsyncErrors(async (req, res, next) => {
+  req.body.user = req.user.id;
+
   const product = await Product.create(req.body);
 
   res.status(201).json({
