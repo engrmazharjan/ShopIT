@@ -98,7 +98,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 // @route   PUT /api/v1/password/reset/:token
 // @access  Public
 exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
-  // Hash URL token
+  // Hash URL Token
   const resetPasswordToken = crypto
     .createHash("sha256")
     .update(req.params.token)
@@ -112,17 +112,17 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   if (!user) {
     return next(
       new ErrorHandler(
-        "Password reset token is invalid or has been expired",
+        "Password Reset Token Is Invalid Or Has Been Expired",
         400
       )
     );
   }
 
   if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHandler("Password does not match", 400));
+    return next(new ErrorHandler("Password Does Not Match", 400));
   }
 
-  // Setup new password
+  // Setup New Password
   user.password = req.body.password;
 
   user.resetPasswordToken = undefined;
