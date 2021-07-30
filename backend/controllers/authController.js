@@ -200,3 +200,33 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
     message: "Logged Out Successfully",
   });
 });
+
+// ADMIN ROUTES
+// @desc    Get All Users
+// @route   GET /api/v1/admin/users
+// @access  Private/Admin
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+// @desc    Get User Details
+// @route   GET /api/v1/admin/user/:id
+// @access  Private/Admin
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User Does Not Found With ID: ${req.params.id}`)
+    );
+  }
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});

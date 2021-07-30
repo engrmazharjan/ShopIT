@@ -10,9 +10,14 @@ const {
   getUserProfile,
   updatePassword,
   updateProfile,
+  getAllUsers,
+  getUserDetails,
 } = require("../controllers/authController");
 
-const { isAuthenticatedUser } = require("../middlewares/authProtect");
+const {
+  isAuthenticatedUser,
+  authorizeRoles,
+} = require("../middlewares/authProtect");
 
 // Register, Login, ForgotPassword, ResetPassword and Logout Routes
 router.route("/register").post(registerUser);
@@ -25,5 +30,13 @@ router.route("/logout").get(logout);
 router.route("/me").get(isAuthenticatedUser, getUserProfile);
 router.route("/password/update").put(isAuthenticatedUser, updatePassword);
 router.route("/me/update").put(isAuthenticatedUser, updateProfile);
+
+// Admin Routes
+router
+  .route("/admin/users")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers);
+router
+  .route("/admin/user/:id")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), getUserDetails);
 
 module.exports = router;
