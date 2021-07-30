@@ -145,6 +145,24 @@ exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// @desc    Update / Change Password
+// @route   GET /api/v1/password/update
+// @access  Private/LoggedInUser
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+
+  // Check Previous User Password
+  const isMatched = await user.comparePassword(req.body.oldPassword);
+  if (!isMatched) {
+    return next(new ErrorHandler("Old Password Is Incorrect", 400));
+  }
+
+  user.password = req.body.password;
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
 // @desc    Logout user
 // @route   GET /api/v1/logout
 // @access  Public
