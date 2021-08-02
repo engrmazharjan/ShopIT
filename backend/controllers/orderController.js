@@ -36,3 +36,34 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     order,
   });
 });
+
+// @desc    Get Single Order
+// @route   GET /api/v1/order/:id
+// @access  Public/LoggedInUser
+exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+
+  if (!order) {
+    return next(new ErrorHandler("No Order Found With This ID", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    order,
+  });
+});
+
+// @desc    Get LoggedInUser Order
+// @route   GET /api/v1/orders/me
+// @access  Public/LoggedInUser
+exports.myOrders = catchAsyncErrors(async (req, res, next) => {
+  const orders = await Order.find({ user: req.user.id });
+
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+});
