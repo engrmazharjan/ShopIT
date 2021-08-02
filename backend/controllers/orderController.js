@@ -56,7 +56,7 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// @desc    Get LoggedInUser Order
+// @desc    Get LoggedInUser Orders
 // @route   GET /api/v1/orders/me
 // @access  Public/LoggedInUser
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
@@ -64,6 +64,25 @@ exports.myOrders = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    orders,
+  });
+});
+
+// @desc    Get All Orders
+// @route   GET /api/v1/admin/orders
+// @access  Private/Admin
+exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
+  const orders = await Order.find();
+
+  let totalAmount = 0;
+
+  orders.forEach((order) => {
+    totalAmount += order.totalPrice;
+  });
+
+  res.status(200).json({
+    success: true,
+    totalAmount,
     orders,
   });
 });
