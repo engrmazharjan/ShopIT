@@ -133,6 +133,18 @@ const createProductReview = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// @desc    Get Product Reviews
+// @route   GET /api/v1/reviews
+// @access  Public
+const getProductReviews = catchAsyncErrors(async (req, res, next) => {
+  const product = await Product.findById(req.query.id);
+
+  res.status(200).json({
+    success: true,
+    reviews: product.reviews,
+  });
+});
+
 module.exports = {
   newProduct,
   getProducts,
@@ -140,4 +152,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   createProductReview,
+  getProductReviews,
 };
