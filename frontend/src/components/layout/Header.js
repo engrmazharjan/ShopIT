@@ -2,13 +2,17 @@ import "../../App";
 
 import React, { Fragment } from "react";
 
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <Fragment>
       <nav className="navbar row">
         <div className="col-12 col-md-3">
           <div className="navbar-brand">
-            <img src="/images/shopit_logo.png" alt="ShopIT Logo" />
+            <Link to="/">
+              <img src="/images/shopit_logo.png" alt="ShopIT Logo" />
+            </Link>
           </div>
         </div>
 
