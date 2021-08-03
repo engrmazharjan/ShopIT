@@ -1,9 +1,13 @@
 import "./App.css";
 
+import Footer from "./components/layout/Footer";
+import Header from "./components/layout/Header";
+
 function App() {
   return (
     <div className="App">
-      <h1>ShopIT MERN</h1>
+      <Header />
+      <Footer />
     </div>
   );
 }
