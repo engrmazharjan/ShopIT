@@ -5,16 +5,21 @@ import Loader from "./layout/Loader";
 import MetaData from "./layout/MetaData";
 import Product from "./product/Product";
 import { getAllProducts } from "../actions/productActions";
+import { useAlert } from "react-alert";
 
 const HomeScreen = () => {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const { loading, products, error, productCount } = useSelector(
     (state) => state.products
   );
 
   useEffect(() => {
+    if (error) {
+      return alert.error(error);
+    }
     dispatch(getAllProducts());
-  }, [dispatch]);
+  }, [dispatch, alert, error]);
 
   return (
     <Fragment>
