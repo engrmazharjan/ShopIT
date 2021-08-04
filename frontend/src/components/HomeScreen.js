@@ -8,21 +8,24 @@ import Product from "./product/Product";
 import { getAllProducts } from "../actions/productActions";
 import { useAlert } from "react-alert";
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const alert = useAlert();
   const dispatch = useDispatch();
+
   const { loading, products, error, productCount, resultPerPage } = useSelector(
     (state) => state.products
   );
+
+  const keyword = match.params.keyword;
 
   useEffect(() => {
     if (error) {
       return alert.error(error);
     }
-    dispatch(getAllProducts(currentPage));
-  }, [dispatch, alert, error, currentPage]);
+    dispatch(getAllProducts(keyword, currentPage));
+  }, [dispatch, alert, error, keyword, currentPage]);
 
   const setCurrentPageNo = (pageNumber) => {
     setCurrentPage(pageNumber);
