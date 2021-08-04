@@ -1,9 +1,8 @@
 import "../../App";
 
+import { Link, Route } from "react-router-dom";
 import React, { Fragment } from "react";
 
-import { Link } from "react-router-dom";
-import { Route } from "react-router-dom";
 import Search from "./Search";
 
 const Header = () => {
