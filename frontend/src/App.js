@@ -5,6 +5,7 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import HomeScreen from "./components/HomeScreen";
+import ProductDetails from "./components/product/ProductDetails";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Header />
         <div className="container container-fluid">
           <Route path="/" component={HomeScreen} exact />
+          <Route path="/product/:id" component={ProductDetails} exact />
         </div>
         <Footer />
       </div>
