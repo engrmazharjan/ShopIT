@@ -1,4 +1,5 @@
 import {
+  CLEAR_ERRORS,
   LOGIN_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -13,7 +14,7 @@ export const login = (email, password) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application.json",
+        "Content-Type": "application/json",
       },
     };
 
@@ -33,4 +34,11 @@ export const login = (email, password) => async (dispatch) => {
       payload: error.response.data.message,
     });
   }
+};
+
+// Clear errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
 };
