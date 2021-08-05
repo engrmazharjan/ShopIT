@@ -8,8 +8,14 @@ import HomeScreen from "./components/HomeScreen";
 import LoginScreen from "./components/user/LoginScreen";
 import ProductDetails from "./components/product/ProductDetails";
 import RegisterScreen from "./components/user/RegisterScreen";
+import { loadUser } from "./actions/authActions";
+import store from "./store";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
   return (
     <Router>
       <div className="App">
