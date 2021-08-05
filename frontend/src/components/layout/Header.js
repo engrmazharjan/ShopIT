@@ -26,6 +26,10 @@ const Header = () => {
             Login
           </Link>
 
+          <Link to="/register" className="btn ml-4" id="login_btn">
+            Sign Up
+          </Link>
+
           <span id="cart" className="ml-3">
             Cart
           </span>

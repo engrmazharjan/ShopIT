@@ -7,6 +7,7 @@ import Header from "./components/layout/Header";
 import HomeScreen from "./components/HomeScreen";
 import LoginScreen from "./components/user/LoginScreen";
 import ProductDetails from "./components/product/ProductDetails";
+import RegisterScreen from "./components/user/RegisterScreen";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/product/:id" component={ProductDetails} exact />
 
           <Route path="/login" component={LoginScreen} />
+          <Route path="/register" component={RegisterScreen} />
         </div>
         <Footer />
       </div>

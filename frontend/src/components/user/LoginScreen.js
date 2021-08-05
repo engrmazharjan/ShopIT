@@ -80,7 +80,7 @@ const LoginScreen = ({ history }) => {
                 </button>
 
                 <Link to="/register" className="float-right mt-3">
-                  New User?
+                  Don't Have An Account?
                 </Link>
               </form>
             </div>
