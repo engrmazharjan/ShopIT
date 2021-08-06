@@ -8,6 +8,7 @@ import HomeScreen from "./components/HomeScreen";
 import LoginScreen from "./components/user/LoginScreen";
 import ProductDetails from "./components/product/ProductDetails";
 import RegisterScreen from "./components/user/RegisterScreen";
+import UserProfileScreen from "./components/user/UserProfileScreen";
 import { loadUser } from "./actions/authActions";
 import store from "./store";
 import { useEffect } from "react";
@@ -27,6 +28,7 @@ function App() {
 
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
+          <Route path="/me" component={UserProfileScreen} exact />
         </div>
         <Footer />
       </div>
