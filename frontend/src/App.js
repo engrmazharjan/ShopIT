@@ -9,6 +9,7 @@ import LoginScreen from "./components/user/LoginScreen";
 import ProductDetails from "./components/product/ProductDetails";
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import RegisterScreen from "./components/user/RegisterScreen";
+import UpdateProfileScreen from "./components/user/UpdateProfileScreen";
 import UserProfileScreen from "./components/user/UserProfileScreen";
 import { loadUser } from "./actions/authActions";
 import store from "./store";
@@ -30,6 +31,11 @@ function App() {
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
           <ProtectedRoute path="/me" component={UserProfileScreen} exact />
+          <ProtectedRoute
+            path="/me/update"
+            component={UpdateProfileScreen}
+            exact
+          />
         </div>
         <Footer />
       </div>
