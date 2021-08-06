@@ -5,6 +5,7 @@ import React, { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Search from "./Search";
+import { logout } from "../../actions/authActions.js";
 import { useAlert } from "react-alert";
 
 const Header = () => {
@@ -14,9 +15,9 @@ const Header = () => {
   const { user, loading } = useSelector((state) => state.auth);
 
   // Logout
-  const logoutHandler = (e) => {
-    e.preventDefault();
-    // Logout: TODO
+  const logoutHandler = () => {
+    dispatch(logout());
+    alert.success("Logged Out Successfully");
   };
 
   return (
