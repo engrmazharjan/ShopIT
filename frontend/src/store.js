@@ -1,5 +1,5 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import { authReducer, updateProfileReducer } from "./reducers/authReducers";
+import { authReducer, updateUserProfileReducer } from "./reducers/authReducers";
 import {
   productDetailsReducer,
   productsReducer,
@@ -12,7 +12,7 @@ const reducer = combineReducers({
   products: productsReducer,
   productDetails: productDetailsReducer,
   auth: authReducer,
-  updateProfile: updateProfileReducer,
+  updateProfile: updateUserProfileReducer,
 });
 
 let initialState = {};

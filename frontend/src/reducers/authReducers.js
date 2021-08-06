@@ -80,7 +80,7 @@ export const authReducer = (state = { user: {} }, action) => {
 };
 
 // User Update Reducer
-export const updateProfileReducer = (state = {}, action) => {
+export const updateUserProfileReducer = (state = {}, action) => {
   switch (action.type) {
     case UPDATE_PROFILE_REQUEST:
       return {
