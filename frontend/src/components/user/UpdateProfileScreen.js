@@ -6,7 +6,6 @@ import {
 } from "../../actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import { UPDATE_PROFILE_RESET } from "../../constants/authConstants";
 import { useAlert } from "react-alert";
