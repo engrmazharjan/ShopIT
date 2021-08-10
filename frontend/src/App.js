@@ -7,6 +7,7 @@ import ForgotPasswordScreen from "./components/user/ForgotPasswordScreen";
 import Header from "./components/layout/Header";
 import HomeScreen from "./components/HomeScreen";
 import LoginScreen from "./components/user/LoginScreen";
+import NewPasswordScreen from "./components/user/NewPasswordScreen";
 import ProductDetails from "./components/product/ProductDetails";
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import RegisterScreen from "./components/user/RegisterScreen";
@@ -46,6 +47,11 @@ function App() {
           <Route
             path="/password/forgot"
             component={ForgotPasswordScreen}
+            exact
+          />
+          <Route
+            path="/password/reset/:token"
+            component={NewPasswordScreen}
             exact
           />
         </div>
