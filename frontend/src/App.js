@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
 import Footer from "./components/layout/Footer";
+import ForgotPasswordScreen from "./components/user/ForgotPasswordScreen";
 import Header from "./components/layout/Header";
 import HomeScreen from "./components/HomeScreen";
 import LoginScreen from "./components/user/LoginScreen";
@@ -40,6 +41,11 @@ function App() {
           <ProtectedRoute
             path="/password/update"
             component={UpdatePasswordScreen}
+            exact
+          />
+          <Route
+            path="/password/forgot"
+            component={ForgotPasswordScreen}
             exact
           />
         </div>
